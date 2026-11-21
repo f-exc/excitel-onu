@@ -1,0 +1,8 @@
+captures/
+firmware/
+build/
+router/dumps/
+.creds
+*.xml
+*.bin
+.excitel-session.json
