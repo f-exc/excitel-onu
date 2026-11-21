@@ -51,7 +51,7 @@ Get the credentials off the box first, `/var/ppp/pppoe.conf` is what it actually
 less ambiguous than reading `pppPasswd` out of the XML:
 
 ```sh
-curl -s "ftp://$FTP_USER:$FTP_PASSWD@192.168.1.1/var/ppp/pppoe.conf"
+curl -s "ftp://$FTP_USER:$FTP_PASSWD@192.168.1.1//var/ppp/pppoe.conf"
 ```
 
 ## Order of operations
@@ -105,7 +105,7 @@ values go inert once the mode is 0, leaving them makes the revert a one-line cha
 Push it, then reboot:
 
 ```sh
-curl -s -T lastgood.new "ftp://$FTP_USER:$FTP_PASSWD@192.168.1.1/var/tmp/lastgood.new"
+curl -s -T lastgood.new "ftp://$FTP_USER:$FTP_PASSWD@192.168.1.1//var/tmp/lastgood.new"
 # from a root shell on the box (telnet 192.168.1.1 after the /var/passwd shell swap):
 /bin/xmlconfig -c /var/tmp/lastgood.new    # exits 0 if the file parses
 cp /var/config/lastgood.xml /var/config/lastgood.xml.bak

@@ -215,16 +215,20 @@ PPPoE material lives in `lastgood.xml` as `pppUser`, `pppPasswd`, `pppServiceNam
 Pull a file off the box (root FTP, unchanged credentials from the MIB):
 
 ```bash
-curl -s --list-only "ftp://$FTP_USER:$FTP_PASSWD@192.168.1.1/var/config/"
-curl -s "ftp://$FTP_USER:$FTP_PASSWD@192.168.1.1/var/config/lastgood.xml" -o captures/ftp-lastgood.xml
+curl -s --list-only "ftp://$FTP_USER:$FTP_PASSWD@192.168.1.1//var/config/"
+curl -s "ftp://$FTP_USER:$FTP_PASSWD@192.168.1.1//var/config/lastgood.xml" -o captures/ftp-lastgood.xml
 ```
+
+Two slashes, not one. The session starts in `/var/tmp` and curl turns the first path
+segment into a relative `CWD`, so one slash gives `550 var: No such file or directory`.
+`//var/config/` is what makes it absolute.
 
 Push a cross-built binary (static, `mips-linux-musl`, mips32r2, no PIE, nothing newer than
 kernel 3.18):
 
 ```bash
 zig build-exe -target mips-linux-musl -mcpu=mips32r2 -O ReleaseSmall tool.c
-curl -T tool "ftp://$FTP_USER:$FTP_PASSWD@192.168.1.1/var/tmp/tool"
+curl -T tool "ftp://$FTP_USER:$FTP_PASSWD@192.168.1.1//var/tmp/tool"
 # then on the box: chmod +x /var/tmp/tool && /var/tmp/tool
 ```
 

@@ -86,13 +86,17 @@ Turn it on from the CLI:
 Both files are one curl, the read is the MIB:
 
 ```sh
-curl -s "ftp://e8ftp:e8ftp@192.168.1.1/var/config/lastgood.xml" -o lastgood.xml
+curl -s "ftp://e8ftp:e8ftp@192.168.1.1//var/config/lastgood.xml" -o lastgood.xml
 ```
+
+The login dir is `/var/tmp` and curl makes the first path segment relative to it, so one
+slash is `550 var: No such file or directory`. Two slashes and it's absolute. lftp and plain
+ftp don't hit this, it's curl doing the `CWD`.
 
 The write is the account file. Take the `excitel` line in a copy of `/var/passwd` and change the shell field from `/bin/cli` to `/bin/sh`, then put it back:
 
 ```sh
-curl -T passwd "ftp://e8ftp:e8ftp@192.168.1.1/var/passwd"
+curl -T passwd "ftp://e8ftp:e8ftp@192.168.1.1//var/passwd"
 ```
 
 Next ssh or telnet login is `#` instead of the CLI, no hidden command involved. `/var` is ramfs and `configd` regenerates the file from the MIB on any account write, so a reboot puts `/bin/cli` back and you repeat the STOR.
