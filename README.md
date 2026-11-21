@@ -1,7 +1,4 @@
-* Root on the Excitel ONU
-* Two commands to root the Excitel ONT
-
-Excitel gave me a UBIQCOM UB5021 GVW-D for an EPON line, and the box is locked. The label `user` account answers `Forbid user login, please log in with administrator account!` and the only admin account is `root` with a password you don't get.
+Excitel a few months ago blocked the login to router admin page, and i wanted to change a few settings (ssid and disable the `www.excitel.com` wifi), but as i cant login the only way was to get root shell. The ISP gave me a UBIQCOM UB5021 GVW-D for an EPON line, and the box is locked. The label `user` account answers `Forbid user login, please log in with administrator account!` and the only admin account is `root` with a password you don't get.
 
 | | |
 |---|---|
